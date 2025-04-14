@@ -35,7 +35,7 @@ A real-time chat application allowing users to communicate instantly. Built usin
 ### Prerequisites
 
 *   Node.js and npm (or yarn) installed
-*   MongoDB instance (local or cloud-based like MongoDB Atlas)
+*   MongoDB instance (local or cloud-based like MongoDB Atlas). You'll need the connection string (URI).
 *   Git (optional, for cloning)
 
 ### Installation
@@ -50,8 +50,12 @@ A real-time chat application allowing users to communicate instantly. Built usin
     ```bash
     cd backend
     npm install
-    # Create a .env file in the backend directory
-    # Add necessary environment variables (MONGO_URI, JWT_SECRET, PORT, etc.)
+    # Create a .env file in the backend directory (e.g., backend/.env)
+    # Add the following environment variables:
+    # MONGO_URI=<your_mongodb_connection_string>
+    # JWT_SECRET=<your_jwt_secret>
+    # PORT=<desired_port_number_e.g_5001>
+    # (Add other variables as needed)
     ```
 
 3.  **Frontend Setup:**
