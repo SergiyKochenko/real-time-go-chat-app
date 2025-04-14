@@ -80,6 +80,37 @@ A real-time chat application allowing users to communicate instantly. Built usin
     ```
     The frontend application will usually open automatically in your browser, often at `http://localhost:5173` or a similar address provided by Vite.
 
+## API Endpoints (Backend)
+
+### Authentication (`/api/auth`)
+
+*   **`POST /api/auth/signup`**: Register a new user.
+    *   **Request Body:**
+        ```json
+        {
+          "fullName": "John Doe",
+          "email": "john.doe@example.com",
+          "password": "password123"
+        }
+        ```
+    *   **Responses:**
+        *   `201 Created`: User successfully created. Returns user object (without password) and sets a JWT cookie.
+            ```json
+            {
+              "_id": "...",
+              "fullName": "John Doe",
+              "email": "john.doe@example.com",
+              "profilePic": ""
+            }
+            ```
+        *   `400 Bad Request`: Invalid input (e.g., missing fields, password too short, email already exists). Returns an error message.
+            ```json
+            { "message": "Email already exists" }
+            ```
+        *   `500 Internal Server Error`: Server-side error during signup.
+
+*(Add other endpoints like /login, /logout as they are implemented)*
+
 ## Deployment
 
 *(Add details on how to deploy the application later, e.g., platforms like Vercel, Netlify, Heroku, Render)*
