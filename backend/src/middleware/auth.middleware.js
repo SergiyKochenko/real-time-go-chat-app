@@ -29,3 +29,9 @@ export const protectRoute = async (req, res, next) => {
         res.status(500).json({ message: "Internal server error" });
     }
 }
+
+// Ensure the middleware function is exported as default
+export default function authMiddleware(req, res, next) {
+    // ...existing middleware logic...
+    next();
+}
