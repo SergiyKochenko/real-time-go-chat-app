@@ -24,6 +24,8 @@ A real-time chat application allowing users to communicate instantly. Built usin
   - [Technologies Used](#technologies-used)
     - [Frontend](#frontend)
     - [Backend](#backend)
+    - [API Endpoints](#api-endpoints)
+      - [Message Routes](#message-routes)
   - [Testing](#testing)
     - [Manual Testing](#manual-testing)
     - [Validator Testing](#validator-testing)
@@ -118,6 +120,22 @@ The goal of this project is to create a real-time chat application that allows u
 * cookie-parser
 * dotenv
 * Cloudinary (for image uploads)
+
+### API Endpoints
+
+#### Message Routes
+
+- **GET `/api/message/users`**  
+  Fetches a list of users (excluding the logged-in user) for the sidebar.  
+  **Protected Route:** Requires authentication.
+
+- **GET `/api/message/:id`**  
+  Fetches messages between the logged-in user and the user with the specified `id`.  
+  **Protected Route:** Requires authentication.
+
+- **POST `/api/message/send/:id`**  
+  Sends a message to the user with the specified `id`. Supports text and optional image uploads.  
+  **Protected Route:** Requires authentication.
 
 ---
 
