@@ -212,9 +212,31 @@ The goal of this project is to create a real-time chat application that allows u
     ```
 
 3. Frontend Setup:
+
+1. Navigate to the `frontend` directory:
     ```bash
-    cd ../frontend
-    npm install
+    cd frontend
+    ```
+
+2. Install dependencies:
+    ```bash
+    npm install react-router-dom react-hot-toast axios zustand lucide-react
+    ```
+
+3. Install and configure Tailwind CSS:
+    ```bash
+    npm install -D tailwindcss@3 postcss autoprefixer
+    npx tailwindcss init -p
+    ```
+
+4. Install daisyUI:
+    ```bash
+    npm install -D daisyui@4.12.23
+    ```
+
+5. Start the development server:
+    ```bash
+    npm run dev
     ```
 
 ### Running the Application
