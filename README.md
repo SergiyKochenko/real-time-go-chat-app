@@ -37,6 +37,8 @@ A real-time chat application allowing users to communicate instantly. Built usin
   - [Local Development](#local-development)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
+    - [Login and Signup Pages](#login-and-signup-pages)
+    - [Notifications with `react-hot-toast`](#notifications-with-react-hot-toast)
     - [Running the Application](#running-the-application)
   - [Credits](#credits)
     - [Content](#content)
@@ -238,6 +240,61 @@ The goal of this project is to create a real-time chat application that allows u
     ```bash
     npm run dev
     ```
+
+---
+
+### Login and Signup Pages
+
+The application includes fully functional Login and Signup pages with the following features:
+
+- **Login Page**:
+  - Users can log in using their email and password.
+  - Password visibility toggle.
+  - Error handling with `react-hot-toast` for invalid credentials.
+  - Redirects to the home page upon successful login.
+
+- **Signup Page**:
+  - Users can create an account by providing their full name, email, and password.
+  - Form validation with error messages displayed using `react-hot-toast`.
+  - Redirects to the home page upon successful signup.
+
+---
+
+### Notifications with `react-hot-toast`
+
+The application uses [`react-hot-toast`](https://react-hot-toast.com/) for displaying notifications. It provides a clean and user-friendly way to show success and error messages.
+
+To use `react-hot-toast`, ensure it is installed:
+```bash
+npm install react-hot-toast
+```
+
+Add the `Toaster` component to the application (already included in `App.jsx`):
+```jsx
+import { Toaster } from "react-hot-toast";
+
+const App = () => {
+  return (
+    <div>
+      {/* ...existing code... */}
+      <Toaster />
+    </div>
+  );
+};
+```
+
+Example usage in the Login and Signup pages:
+```javascript
+import toast from "react-hot-toast";
+
+// Display a success message
+toast.success("Logged in successfully!");
+
+// Display an error message
+toast.error("Invalid email or password.");
+```
+
+---
 
 ### Running the Application
 
