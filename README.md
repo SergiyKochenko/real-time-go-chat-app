@@ -38,6 +38,7 @@ A real-time chat application allowing users to communicate instantly. Built usin
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
     - [Login and Signup Pages](#login-and-signup-pages)
+    - [Profile Page](#profile-page)
     - [Notifications with `react-hot-toast`](#notifications-with-react-hot-toast)
     - [Running the Application](#running-the-application)
   - [Credits](#credits)
@@ -260,38 +261,39 @@ The application includes fully functional Login and Signup pages with the follow
 
 ---
 
+### Profile Page
+
+The Profile Page allows users to view and update their profile information. Key features include:
+
+- **Profile Picture Upload**:
+  - Users can upload a new profile picture by clicking on the camera icon.
+  - The image is displayed in real-time after upload.
+  - A loading animation is shown while the image is being uploaded.
+
+- **User Information**:
+  - Displays the user's full name and email address.
+  - Shows account details such as the account creation date and status.
+
+- **Responsive Design**:
+  - The page is fully responsive and works seamlessly on all devices.
+
+---
+
 ### Notifications with `react-hot-toast`
 
-The application uses [`react-hot-toast`](https://react-hot-toast.com/) for displaying notifications. It provides a clean and user-friendly way to show success and error messages.
+The Profile Page uses [`react-hot-toast`](https://react-hot-toast.com/) to display notifications for profile updates:
+- **Success Notification**: Shown when the profile is updated successfully.
+- **Error Notification**: Shown if there is an issue during the update process.
 
-To use `react-hot-toast`, ensure it is installed:
-```bash
-npm install react-hot-toast
-```
-
-Add the `Toaster` component to the application (already included in `App.jsx`):
-```jsx
-import { Toaster } from "react-hot-toast";
-
-const App = () => {
-  return (
-    <div>
-      {/* ...existing code... */}
-      <Toaster />
-    </div>
-  );
-};
-```
-
-Example usage in the Login and Signup pages:
+Example usage:
 ```javascript
 import toast from "react-hot-toast";
 
 // Display a success message
-toast.success("Logged in successfully!");
+toast.success("Profile updated successfully!");
 
 // Display an error message
-toast.error("Invalid email or password.");
+toast.error("Failed to update profile. Please try again.");
 ```
 
 ---
