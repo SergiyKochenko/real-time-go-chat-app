@@ -39,6 +39,7 @@ A real-time chat application allowing users to communicate instantly. Built usin
     - [Installation](#installation)
     - [Login and Signup Pages](#login-and-signup-pages)
     - [Profile Page](#profile-page)
+    - [Settings Page](#settings-page)
     - [Notifications with `react-hot-toast`](#notifications-with-react-hot-toast)
     - [Running the Application](#running-the-application)
   - [Credits](#credits)
@@ -279,6 +280,23 @@ The Profile Page allows users to view and update their profile information. Key 
 
 ---
 
+### Settings Page
+
+The Settings Page allows users to customize their chat experience by selecting a theme and previewing the changes in real-time. Key features include:
+
+- **Theme Selection**:
+  - Users can choose from a variety of themes to personalize the chat interface.
+  - The selected theme is applied immediately and saved to `localStorage` for persistence across sessions.
+
+- **Preview Section**:
+  - Displays a mock chat interface to preview the selected theme.
+  - If the user is logged in, their name and avatar are displayed in the preview. Otherwise, it defaults to "John Doe" and a placeholder avatar.
+
+- **Responsive Design**:
+  - The page is fully responsive and works seamlessly on all devices.
+
+---
+
 ### Notifications with `react-hot-toast`
 
 The Profile Page uses [`react-hot-toast`](https://react-hot-toast.com/) to display notifications for profile updates:
@@ -294,6 +312,19 @@ toast.success("Profile updated successfully!");
 
 // Display an error message
 toast.error("Failed to update profile. Please try again.");
+```
+
+The Settings Page uses [`react-hot-toast`](https://react-hot-toast.com/) to display notifications for theme changes or other actions (if applicable).
+
+Example usage:
+```javascript
+import toast from "react-hot-toast";
+
+// Display a success message
+toast.success("Theme updated successfully!");
+
+// Display an error message
+toast.error("Failed to update theme. Please try again.");
 ```
 
 ---
