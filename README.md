@@ -44,7 +44,12 @@ A real-time chat application allowing users to communicate instantly. Built usin
     - [Chat Container](#chat-container)
     - [Bug Fix: `app.use("/api/messages", messageRoutes);`](#bug-fix-appuseapimessages-messageroutes)
     - [Notifications with `react-hot-toast`](#notifications-with-react-hot-toast)
-    - [Running the Application](#running-the-application)
+    - [Implementation of Socket.io](#implementation-of-socketio)
+      - [Backend Implementation](#backend-implementation)
+      - [Frontend Implementation](#frontend-implementation)
+      - [Key Features](#key-features)
+      - [Example Code](#example-code)
+  - [Running the Application](#running-the-application)
   - [Credits](#credits)
     - [Content](#content)
     - [Media](#media)
@@ -417,7 +422,116 @@ toast.success("Message sent successfully!");
 
 ---
 
-### Running the Application
+### Implementation of Socket.io
+
+The application uses **Socket.io** to enable real-time communication between users. Below are the key aspects of the implementation:
+
+#### Backend Implementation
+
+- **Socket.io Server**:
+  - The Socket.io server is initialized in the `socket.js` file.
+  - It listens for client connections and manages online users using a `userSocketMap`.
+
+- **Tracking Online Users**:
+  - When a user connects, their `userId` and `socketId` are stored in the `userSocketMap`.
+  - When a user disconnects, their entry is removed from the map.
+  - The `getOnlineUsers` event is emitted to all connected clients whenever the list of online users changes.
+
+- **Sending Messages**:
+  - The `sendMessage` controller uses the `getReceiverSocketId` function to retrieve the receiver's `socketId`.
+  - If the receiver is online, the message is sent to their socket in real-time using `io.to(receiverSocketId).emit()`.
+
+#### Frontend Implementation
+
+- **Socket Connection**:
+  - The frontend establishes a WebSocket connection to the backend using the `socket.io-client` library.
+  - The connection is initialized in the `useAuthStore` store when the user logs in or their authentication is verified.
+
+- **Receiving Events**:
+  - The `subscribeToMessages` function in the `useChatStore` listens for the `newMessage` event to update the chat in real-time.
+  - The `getOnlineUsers` event updates the list of online users in the `Sidebar`.
+
+#### Key Features
+
+- **Real-Time Messaging**:
+  - Messages are sent and received in real-time without requiring a page refresh.
+
+- **Online Status**:
+  - The `Sidebar` displays online users with a green dot on their profile picture.
+  - The online user count is dynamically updated.
+
+- **Scalable Architecture**:
+  - The `userSocketMap` ensures efficient tracking of online users.
+  - The architecture can be extended to support additional real-time features like typing indicators or read receipts.
+
+#### Example Code
+
+**Backend: Socket.io Setup**
+```javascript
+// filepath: c:\Users\Sergiy\Desktop\chat-app\backend\src\lib\socket.js
+import { Server } from "socket.io";
+import http from "http";
+import express from "express";
+
+const app = express();
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: ["http://localhost:5173"],
+  },
+});
+
+const userSocketMap = {}; // { userId: socketId }
+
+io.on("connection", (socket) => {
+  const userId = socket.handshake.query.userId;
+  if (userId) userSocketMap[userId] = socket.id;
+
+  io.emit("getOnlineUsers", Object.keys(userSocketMap));
+
+  socket.on("disconnect", () => {
+    delete userSocketMap[userId];
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+  });
+});
+
+export { io, app, server };
+```
+
+**Frontend: Connecting to Socket.io**
+```javascript
+// filepath: c:\Users\Sergiy\Desktop\chat-app\frontend\src\store\useAuthStore.js
+import { io } from "socket.io-client";
+
+const BASE_URL = "http://localhost:5001";
+
+export const useAuthStore = create((set, get) => ({
+  socket: null,
+  connectSocket: () => {
+    const { authUser } = get();
+    if (!authUser || get().socket?.connected) return;
+
+    const socket = io(BASE_URL, {
+      query: { userId: authUser._id },
+    });
+    socket.connect();
+
+    set({ socket });
+
+    socket.on("getOnlineUsers", (userIds) => {
+      set({ onlineUsers: userIds });
+    });
+  },
+  disconnectSocket: () => {
+    if (get().socket?.connected) get().socket.disconnect();
+  },
+}));
+```
+
+---
+
+## Running the Application
 
 1. Start the Backend Server:
     ```bash
