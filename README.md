@@ -40,6 +40,8 @@ A real-time chat application allowing users to communicate instantly. Built usin
     - [Login and Signup Pages](#login-and-signup-pages)
     - [Profile Page](#profile-page)
     - [Settings Page](#settings-page)
+    - [Sidebar](#sidebar)
+    - [Bug Fix: `app.use("/api/messages", messageRoutes);`](#bug-fix-appuseapimessages-messageroutes)
     - [Notifications with `react-hot-toast`](#notifications-with-react-hot-toast)
     - [Running the Application](#running-the-application)
   - [Credits](#credits)
@@ -294,6 +296,50 @@ The Settings Page allows users to customize their chat experience by selecting a
 
 - **Responsive Design**:
   - The page is fully responsive and works seamlessly on all devices.
+
+---
+
+### Sidebar
+
+The Sidebar component provides a list of users for the logged-in user to chat with. Key features include:
+
+- **User List**:
+  - Displays all users except the logged-in user.
+  - Shows the user's profile picture, name, and online/offline status.
+
+- **Online Status**:
+  - Users who are online are indicated with a green dot on their profile picture.
+
+- **Skeleton Loading**:
+  - While the user data is being fetched, a skeleton loader is displayed to improve user experience.
+
+- **User Selection**:
+  - Clicking on a user selects them for a chat session, and the chat interface updates accordingly.
+
+- **Responsive Design**:
+  - The Sidebar is fully responsive and adapts to different screen sizes.
+
+---
+
+### Bug Fix: `app.use("/api/messages", messageRoutes);`
+
+The `app.use("/api/messages", messageRoutes);` route in the backend was fixed to ensure proper functionality. The issue was related to the middleware or route handler not being correctly configured.
+
+Steps taken to fix:
+1. Verified that the `messageRoutes` file is correctly imported:
+   ```javascript
+   import messageRoutes from './routes/message.route.js';
+   ```
+
+2. Ensured the route is properly registered:
+   ```javascript
+   app.use("/api/messages", messageRoutes);
+   ```
+
+3. Restarted the backend server to apply the changes:
+   ```bash
+   npm run dev
+   ```
 
 ---
 
