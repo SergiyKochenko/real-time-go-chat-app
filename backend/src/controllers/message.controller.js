@@ -1,8 +1,13 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
-
 import cloudinary from "../lib/cloudinary.js";
 
+// Mock function to get receiver's socket ID (replace with actual implementation)
+const getReceiverSocketId = (receiverId) => {
+  // This should return the socket ID of the receiver if they are online
+  // Replace this with your actual socket management logic
+  return null; // Return null if the receiver is not online
+};
 
 export const getUsersForSidebar = async (req, res) => {
   try {
