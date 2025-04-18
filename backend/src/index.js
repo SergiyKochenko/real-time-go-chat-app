@@ -7,10 +7,9 @@ import { connectDB } from './lib/db.js';
 
 import authRoutes from './routes/auth.route.js';
 import messageRoutes from './routes/message.route.js';
+import { app, server } from './lib/socket.js'; // Import socket.io instance
 
 dotenv.config();
-
-const app = express();
 
 const PORT = process.env.PORT || 5000; // Default to 5000 if PORT is not defined
 
@@ -27,12 +26,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 // Start the server
-app.listen(PORT, async () => {
-  try {
-    console.log('Server is running on PORT:', PORT);
-    await connectDB();
-  } catch (error) {
-    console.error("Failed to connect to the database:", error);
-    process.exit(1); // Exit the process with an error code
-  }
+server.listen(PORT, () => {
+    console.log('Server is running on PORT:', + PORT);
+    connectDB();
 });
