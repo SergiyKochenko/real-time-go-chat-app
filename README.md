@@ -41,6 +41,7 @@ A real-time chat application allowing users to communicate instantly. Built usin
     - [Profile Page](#profile-page)
     - [Settings Page](#settings-page)
     - [Sidebar](#sidebar)
+    - [Chat Container](#chat-container)
     - [Bug Fix: `app.use("/api/messages", messageRoutes);`](#bug-fix-appuseapimessages-messageroutes)
     - [Notifications with `react-hot-toast`](#notifications-with-react-hot-toast)
     - [Running the Application](#running-the-application)
@@ -321,6 +322,34 @@ The Sidebar component provides a list of users for the logged-in user to chat wi
 
 ---
 
+### Chat Container
+
+The Chat Container is the main area where users can view and send messages in a chat session. Key features include:
+
+- **Message Display**:
+  - Displays all messages exchanged between the logged-in user and the selected user.
+  - Messages are styled differently based on whether they are sent or received.
+  - Includes support for text and image messages.
+
+- **Message Timestamps**:
+  - Each message displays a timestamp formatted using the `formatMessageTime` utility.
+
+- **Message Input**:
+  - Users can type and send text messages.
+  - Users can also attach and send images along with their messages.
+  - Includes a preview of the selected image with an option to remove it before sending.
+
+- **Skeleton Loading**:
+  - While messages are being fetched, a skeleton loader is displayed to improve user experience.
+
+- **Scroll to Latest Message**:
+  - Automatically scrolls to the latest message when new messages are added.
+
+- **Responsive Design**:
+  - The Chat Container is fully responsive and adapts to different screen sizes.
+
+---
+
 ### Bug Fix: `app.use("/api/messages", messageRoutes);`
 
 The `app.use("/api/messages", messageRoutes);` route in the backend was fixed to ensure proper functionality. The issue was related to the middleware or route handler not being correctly configured.
@@ -371,6 +400,19 @@ toast.success("Theme updated successfully!");
 
 // Display an error message
 toast.error("Failed to update theme. Please try again.");
+```
+
+The Chat Container uses [`react-hot-toast`](https://react-hot-toast.com/) to display notifications for errors or actions (e.g., invalid file uploads).
+
+Example usage:
+```javascript
+import toast from "react-hot-toast";
+
+// Display an error message
+toast.error("Failed to send message. Please try again.");
+
+// Display a success message
+toast.success("Message sent successfully!");
 ```
 
 ---
