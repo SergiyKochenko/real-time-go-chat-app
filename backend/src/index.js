@@ -15,7 +15,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 // Increase the body size limit
-app.use(express.json({ limit: '10mb' })); // Adjust the limit as needed
+app.use(express.json()); // Adjust the limit as needed
 app.use(cookieParser());
 app.use(cors({
   origin: "http://localhost:5173",
@@ -23,9 +23,9 @@ app.use(cors({
 }));
 
 app.use("/api/auth", authRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.listen(PORT, () => {
-  console.log('Server is running on PORT:', PORT);
+  console.log('Server is running on PORT:',  + PORT);
   connectDB();
 });
