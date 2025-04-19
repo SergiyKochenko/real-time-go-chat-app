@@ -27,8 +27,13 @@ app.use(
 );
 
 
+// Verify all routes are correctly defined
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
+
+// Ensure no invalid or malformed routes are defined
+// Example of a valid route:
+// app.get("/api/example", (req, res) => res.send("Example route"));
 
 if(process.env.NODE_ENV === "production"){
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
