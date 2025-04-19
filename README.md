@@ -32,6 +32,7 @@ A real-time chat application allowing users to communicate instantly. Built usin
     - [Performance Testing](#performance-testing)
     - [Known Bugs](#known-bugs)
   - [Deployment](#deployment)
+    - [Preparation for Deployment](#preparation-for-deployment)
     - [Backend Deployment](#backend-deployment)
     - [Frontend Deployment](#frontend-deployment)
   - [Local Development](#local-development)
@@ -182,7 +183,49 @@ The goal of this project is to create a real-time chat application that allows u
 
 ## Deployment
 
-*(Describe the steps taken to deploy the application.)*
+### Preparation for Deployment
+
+1. **Environment Variables**:
+   Ensure the following environment variables are set in the `.env` file for both backend and frontend:
+   - **Backend**:
+     ```
+     MONGO_URI=<your_mongodb_connection_string>
+     JWT_SECRET=<your_jwt_secret>
+     PORT=<desired_port_number>
+     CLOUDINARY_CLOUD_NAME=<your_cloudinary_cloud_name>
+     CLOUDINARY_API_KEY=<your_cloudinary_api_key>
+     CLOUDINARY_API_SECRET=<your_cloudinary_api_secret>
+     NODE_ENV=production
+     ```
+   - **Frontend**:
+     ```
+     VITE_API_BASE_URL=<backend_base_url>
+     ```
+
+2. **Build Frontend**:
+   Navigate to the `frontend` directory and run:
+   ```bash
+   npm run build
+   ```
+
+3. **Serve Frontend with Backend**:
+   Ensure the backend is configured to serve the frontend's `dist` folder in production mode:
+   ```javascript
+   if (process.env.NODE_ENV === "production") {
+     app.use(express.static(path.join(__dirname, "/frontend/dist")));
+     app.get("*", (req, res) => {
+       res.sendFile(path.join(__dirname, "/frontend", "dist", "index.html"));
+     });
+   }
+   ```
+
+4. **Deploy to Hosting Platform**:
+   - Deploy the backend (including the built frontend) to a hosting platform like Render, Heroku, or AWS.
+   - Ensure the platform supports Node.js and MongoDB.
+
+5. **Test Deployment**:
+   - Verify that the application works as expected in the production environment.
+   - Test all major features, including authentication, messaging, and real-time updates.
 
 ### Backend Deployment
 
