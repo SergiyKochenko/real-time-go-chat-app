@@ -1,5 +1,5 @@
 import { useChatStore } from "../store/useChatStore";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
@@ -19,6 +19,7 @@ const ChatContainer = () => {
 
   const { authUser } = useAuthStore();
   const messageEndRef = useRef(null);
+  const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
     getMessages(selectedUser._id);
@@ -37,6 +38,14 @@ const ChatContainer = () => {
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleImageClick = (image) => {
+    setPreviewImage(image);
+  };
+
+  const closePreview = () => {
+    setPreviewImage(null);
   };
 
   if (isMessagesLoading) {
@@ -83,7 +92,8 @@ const ChatContainer = () => {
                 <img
                   src={message.image}
                   alt="Attachment"
-                  className="sm:max-w-[200px] rounded-md mb-2"
+                  className="sm:max-w-[200px] rounded-md mb-2 cursor-pointer"
+                  onClick={() => handleImageClick(message.image)} // Open full-screen preview
                   onLoad={handleImageLoad} // Scroll to the end when the image is loaded
                 />
               )}
@@ -95,6 +105,22 @@ const ChatContainer = () => {
       </div>
 
       <MessageInput />
+
+      {previewImage && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <img
+            src={previewImage}
+            alt="Preview"
+            className="max-w-full max-h-full rounded-md"
+          />
+          <button
+            className="absolute top-4 right-4 text-white text-2xl"
+            onClick={closePreview}
+          >
+            &times;
+          </button>
+        </div>
+      )}
     </div>
   );
 };
