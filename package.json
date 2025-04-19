@@ -1,0 +1,13 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "A real-time chat application allowing users to communicate instantly. Built using the MERN stack (MongoDB, Express, React, Node.js) and Socket.IO for real-time web socket communication.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "npm run start --prefix backend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
