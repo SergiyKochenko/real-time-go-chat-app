@@ -31,16 +31,16 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// Ensure no invalid or malformed routes are defined
-// Example of a valid route:
-// app.get("/api/example", (req, res) => res.send("Example route"));
-
 // If any dynamic routes are used, ensure they are properly formatted
 // Example of a valid dynamic route:
 // app.get("/api/messages/:id", (req, res) => {
 //   const { id } = req.params;
 //   res.send(`Message ID: ${id}`);
 // });
+
+// Ensure no invalid or malformed routes are defined
+// Example of an invalid route that could cause the error:
+// app.get("/api/messages/:", (req, res) => { ... }); // Missing parameter name
 
 if(process.env.NODE_ENV === "production"){
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
