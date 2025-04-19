@@ -35,6 +35,13 @@ app.use("/api/messages", messageRoutes);
 // Example of a valid route:
 // app.get("/api/example", (req, res) => res.send("Example route"));
 
+// If any dynamic routes are used, ensure they are properly formatted
+// Example of a valid dynamic route:
+// app.get("/api/messages/:id", (req, res) => {
+//   const { id } = req.params;
+//   res.send(`Message ID: ${id}`);
+// });
+
 if(process.env.NODE_ENV === "production"){
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
   app.get("*", (req, res) => {
