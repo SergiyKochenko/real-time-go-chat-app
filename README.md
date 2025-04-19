@@ -2,14 +2,23 @@
 
 A real-time chat application allowing users to communicate instantly. Built using the MERN stack (MongoDB, Express, React, Node.js) and Socket.IO for real-time web socket communication.
 
-[View Live Demo](#) <!-- Add live demo link -->
-[View Repository](#) <!-- Add repository link -->
+[View Live Demo](https://real-time-go-chat-app.onrender.com/)  
+[View Repository](https://github.com/SergiyKochenko/real-time-go-chat-app)
+
+---
+
+## Am I Responsive?
+
+![Am I Responsive](./assets/amiresponsive.png)
+
+The application is fully responsive and works seamlessly across devices, including desktops, tablets, and mobile phones.
 
 ---
 
 ## Table of Contents
 
 - [Chat App](#chat-app)
+  - [Am I Responsive?](#am-i-responsive)
   - [Table of Contents](#table-of-contents)
   - [Project Goals](#project-goals)
   - [User Experience (UX)](#user-experience-ux)
@@ -35,6 +44,7 @@ A real-time chat application allowing users to communicate instantly. Built usin
     - [Preparation for Deployment](#preparation-for-deployment)
     - [Backend Deployment](#backend-deployment)
     - [Frontend Deployment](#frontend-deployment)
+    - [Completed Deployment](#completed-deployment)
   - [Local Development](#local-development)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
@@ -234,6 +244,14 @@ The goal of this project is to create a real-time chat application that allows u
 ### Frontend Deployment
 
 *(Specify the platform used, e.g., Vercel, Netlify, and the steps involved.)*
+
+### Completed Deployment
+
+The application has been successfully deployed and is live at:  
+**[https://real-time-go-chat-app.onrender.com/](https://real-time-go-chat-app.onrender.com/)**
+
+The source code is available at:  
+**[https://github.com/SergiyKochenko/real-time-go-chat-app](https://github.com/SergiyKochenko/real-time-go-chat-app)**
 
 ---
 
