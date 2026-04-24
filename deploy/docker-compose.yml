@@ -6,7 +6,7 @@ services:
     env_file:
       - ../backend/.env
     ports:
-      - "5000:5000"
+      - "5001:5001"
     depends_on:
       - mongo
     environment:
@@ -18,7 +18,7 @@ services:
     build:
       context: ../frontend
     ports:
-      - "3000:3000"
+      - "5173:5173"
     environment:
       - NODE_ENV=${NODE_ENV}
       - BACKEND_URL=${BACKEND_URL}
