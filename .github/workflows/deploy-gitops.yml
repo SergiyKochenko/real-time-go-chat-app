@@ -1,0 +1,111 @@
+name: GitOps Multi-Environment Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: Target environment for promotion
+        required: true
+        default: staging
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+      run_deploy:
+        description: Execute deployment webhook
+        required: true
+        type: boolean
+        default: true
+
+concurrency:
+  group: deploy-${{ github.event_name == 'workflow_dispatch' && github.event.inputs.target_environment || 'development' }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.target_environment || 'development' }}
+    env:
+      DEPLOY_WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL }}
+      APP_HEALTHCHECK_URL: ${{ secrets.APP_HEALTHCHECK_URL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            frontend/package-lock.json
+            backend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          npm ci --prefix frontend
+          npm ci --prefix backend
+
+      - name: Build frontend
+        run: npm --prefix frontend run build
+
+      - name: Validate backend syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r file; do
+            node --check "$file"
+          done < <(find backend/src -type f -name "*.js")
+
+      - name: Package deployment artifact
+        shell: bash
+        run: |
+          mkdir -p release
+          tar -czf release/chat-app-${GITHUB_SHA}.tgz backend frontend package.json README.md
+
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ github.sha }}
+          path: release
+          retention-days: 30
+
+      - name: Trigger environment deployment webhook
+        if: (github.event_name != 'workflow_dispatch' || github.event.inputs.run_deploy == 'true') && env.DEPLOY_WEBHOOK_URL != ''
+        run: curl -fsSL -X POST "$DEPLOY_WEBHOOK_URL"
+
+      - name: Run health check
+        if: (github.event_name != 'workflow_dispatch' || github.event.inputs.run_deploy == 'true') && env.APP_HEALTHCHECK_URL != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in {1..10}; do
+            if curl -fsSL "$APP_HEALTHCHECK_URL" > /dev/null; then
+              echo "Health check succeeded on attempt ${attempt}."
+              exit 0
+            fi
+            echo "Health check attempt ${attempt} failed. Retrying in 10s..."
+            sleep 10
+          done
+          echo "Health check failed after 10 attempts."
+          exit 1
+
+      - name: Write deployment summary
+        shell: bash
+        run: |
+          echo "## Deployment Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.target_environment || 'development' }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Commit SHA: $GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Actor: $GITHUB_ACTOR" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Trigger: $GITHUB_EVENT_NAME" >> "$GITHUB_STEP_SUMMARY"

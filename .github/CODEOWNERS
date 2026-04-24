@@ -1,0 +1,10 @@
+# Default code owners
+* @SergiyKochenko
+
+# Service boundaries
+backend/ @SergiyKochenko
+frontend/ @SergiyKochenko
+
+# DevOps ownership
+.github/workflows/ @SergiyKochenko
+docs/ca2/ @SergiyKochenko

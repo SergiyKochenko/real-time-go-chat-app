@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: DevOps discussion
+    url: https://github.com/SergiyKochenko/real-time-go-chat-app/discussions
+    about: Use discussions for architectural, workflow, and pipeline decisions.

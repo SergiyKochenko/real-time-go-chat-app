@@ -1,0 +1,49 @@
+name: Bug report
+description: Report a defect with reproduction details and impact.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is broken?
+      placeholder: Describe the defect and expected behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Provide clear, ordered steps.
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - development
+        - staging
+        - production
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs and evidence
+      description: Add stack traces, screenshots, workflow run URLs, and timestamps.
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Explain impact on users, reliability, or delivery.

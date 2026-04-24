@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MessageSquare, User, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AuthImagePattern from "../components/AuthImagePattern";
 import toast from "react-hot-toast";
 
@@ -14,7 +14,6 @@ const SignUpPage = () => {
   });
 
   const { signup, isSigningUp } = useAuthStore();
-  const navigate = useNavigate();
 // -------------
   const validateForm = () => {
     if (!formData.fullName.trim()) 
