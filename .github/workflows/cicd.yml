@@ -119,7 +119,9 @@ jobs:
     name: Deploy to Production
     needs: [DeployStaging]
     runs-on: ubuntu-latest
-    environment: production
+    environment:
+      name: production
+      url: https://real-time-go-chat-app.onrender.com
     env:
       NODE_ENV: production
       FRONTEND_URL: ${{ vars.PROD_FRONTEND_URL }}
