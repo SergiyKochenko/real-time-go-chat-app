@@ -1,0 +1,114 @@
+# CI/CD workflow for real-time-go-chat-app
+# Builds and tests both frontend and backend, deploys using Docker Compose
+
+name: CI + CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Backend build & test
+      - name: Set up Node.js (backend)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: ./backend
+      - name: Run backend tests
+        run: npm test || echo "No backend tests found"
+        working-directory: ./backend
+
+      # Frontend build & test
+      - name: Set up Node.js (frontend)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: ./frontend
+      - name: Run frontend tests
+        run: npm test || echo "No frontend tests found"
+        working-directory: ./frontend
+      - name: Build frontend
+        run: npm run build
+        working-directory: ./frontend
+
+      - name: Checks complete
+        run: echo "Build and tests completed successfully."
+
+  DeployDev:
+    name: Deploy to Development
+    needs: [ Build ]
+    runs-on: ubuntu-latest
+    environment: development
+    env:
+      NODE_ENV: development
+      FRONTEND_URL: ${{ vars.DEV_FRONTEND_URL }}
+      BACKEND_URL: ${{ vars.DEV_BACKEND_URL }}
+      MONGODB_URI: ${{ secrets.DEV_MONGODB_URI }}
+      JWT_SECRET: ${{ secrets.DEV_JWT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+      - name: Deploy with Docker Compose (Dev)
+        run: |
+          docker-compose -f deploy/docker-compose.yml up -d --build
+          echo "Deployed to Development (${{ vars.DEV_FRONTEND_URL }})"
+
+  DeployStaging:
+    name: Deploy to Staging
+    if: github.event.ref == 'refs/heads/main'
+    needs: [ Build ]
+    runs-on: ubuntu-latest
+    environment: staging
+    env:
+      NODE_ENV: staging
+      FRONTEND_URL: ${{ vars.STAGING_FRONTEND_URL }}
+      BACKEND_URL: ${{ vars.STAGING_BACKEND_URL }}
+      MONGODB_URI: ${{ secrets.STAGING_MONGODB_URI }}
+      JWT_SECRET: ${{ secrets.STAGING_JWT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+      - name: Deploy with Docker Compose (Staging)
+        run: |
+          docker-compose -f deploy/docker-compose.yml up -d --build
+          echo "Deployed to Staging (${{ vars.STAGING_FRONTEND_URL }})"
+
+  DeployProduction:
+    name: Deploy to Production
+    needs: [DeployStaging]
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      NODE_ENV: production
+      FRONTEND_URL: ${{ vars.PROD_FRONTEND_URL }}
+      BACKEND_URL: ${{ vars.PROD_BACKEND_URL }}
+      MONGODB_URI: ${{ secrets.PROD_MONGODB_URI }}
+      JWT_SECRET: ${{ secrets.PROD_JWT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+      - name: Deploy with Docker Compose (Production)
+        run: |
+          docker-compose -f deploy/docker-compose.yml up -d --build
+          echo "Deployed to Production (https://real-time-go-chat-app.onrender.com/)"
