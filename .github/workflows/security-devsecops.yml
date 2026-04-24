@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -38,10 +38,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
 
@@ -61,13 +61,14 @@ jobs:
       - name: Summarize vulnerabilities in job report
         shell: bash
         run: |
+          set +e
           echo "## Dependency Audit Summary" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "### Frontend" >> "$GITHUB_STEP_SUMMARY"
-          jq '.metadata.vulnerabilities' frontend-audit.json >> "$GITHUB_STEP_SUMMARY"
+          jq '.metadata.vulnerabilities // "No vulnerability metadata available"' frontend-audit.json >> "$GITHUB_STEP_SUMMARY" || echo "Unable to parse frontend-audit.json" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "### Backend" >> "$GITHUB_STEP_SUMMARY"
-          jq '.metadata.vulnerabilities' backend-audit.json >> "$GITHUB_STEP_SUMMARY"
+          jq '.metadata.vulnerabilities // "No vulnerability metadata available"' backend-audit.json >> "$GITHUB_STEP_SUMMARY" || echo "Unable to parse backend-audit.json" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload dependency audit artifacts
         uses: actions/upload-artifact@v4
