@@ -14,11 +14,11 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # Backend build & test
       - name: Set up Node.js (backend)
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '20'
       - name: Install backend dependencies
@@ -30,7 +30,7 @@ jobs:
 
       # Frontend build & test
       - name: Set up Node.js (frontend)
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '20'
       - name: Install frontend dependencies
@@ -62,11 +62,7 @@ jobs:
       CLOUDINARY_API_KEY: ${{ secrets.DEV_CLOUDINARY_API_KEY }}
       CLOUDINARY_API_SECRET: ${{ secrets.DEV_CLOUDINARY_API_SECRET }}
     steps:
-      - uses: actions/checkout@v4
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+      - uses: actions/checkout@v5
       - name: Create backend .env (Dev)
         run: |
           cat <<EOF > backend/.env
@@ -80,7 +76,7 @@ jobs:
           EOF
       - name: Deploy with Docker Compose (Dev)
         run: |
-          docker-compose -f deploy/docker-compose.yml up -d --build
+          docker compose -f deploy/docker-compose.yml up -d --build
           echo "Deployed to Development (${{ vars.DEV_FRONTEND_URL }})"
         working-directory: ${{ github.workspace }}
 
@@ -101,11 +97,7 @@ jobs:
       CLOUDINARY_API_KEY: ${{ secrets.STAGING_CLOUDINARY_API_KEY }}
       CLOUDINARY_API_SECRET: ${{ secrets.STAGING_CLOUDINARY_API_SECRET }}
     steps:
-      - uses: actions/checkout@v4
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+      - uses: actions/checkout@v5
       - name: Create backend .env (Staging)
         run: |
           cat <<EOF > backend/.env
@@ -119,7 +111,7 @@ jobs:
           EOF
       - name: Deploy with Docker Compose (Staging)
         run: |
-          docker-compose -f deploy/docker-compose.yml up -d --build
+          docker compose -f deploy/docker-compose.yml up -d --build
           echo "Deployed to Staging (${{ vars.STAGING_FRONTEND_URL }})"
         working-directory: ${{ github.workspace }}
 
@@ -139,11 +131,7 @@ jobs:
       CLOUDINARY_API_KEY: ${{ secrets.PROD_CLOUDINARY_API_KEY }}
       CLOUDINARY_API_SECRET: ${{ secrets.PROD_CLOUDINARY_API_SECRET }}
     steps:
-      - uses: actions/checkout@v4
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+      - uses: actions/checkout@v5
       - name: Create backend .env (Production)
         run: |
           cat <<EOF > backend/.env
@@ -157,6 +145,6 @@ jobs:
           EOF
       - name: Deploy with Docker Compose (Production)
         run: |
-          docker-compose -f deploy/docker-compose.yml up -d --build
+          docker compose -f deploy/docker-compose.yml up -d --build
           echo "Deployed to Production (https://real-time-go-chat-app.onrender.com/)"
         working-directory: ${{ github.workspace }}
