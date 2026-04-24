@@ -42,6 +42,7 @@ The application is fully responsive and works seamlessly across devices, includi
     - [Known Bugs](#known-bugs)
   - [Deployment](#deployment)
     - [Preparation for Deployment](#preparation-for-deployment)
+    - [CI/CD Pipeline Jobs](#cicd-pipeline-jobs)
     - [Backend Deployment](#backend-deployment)
     - [Frontend Deployment](#frontend-deployment)
     - [Completed Deployment](#completed-deployment)
@@ -236,6 +237,31 @@ The goal of this project is to create a real-time chat application that allows u
 5. **Test Deployment**:
    - Verify that the application works as expected in the production environment.
    - Test all major features, including authentication, messaging, and real-time updates.
+
+### CI/CD Pipeline Jobs
+
+This project uses GitHub Actions workflow [`.github/workflows/cicd.yml`](.github/workflows/cicd.yml) with the following job flow:
+
+1. **Build**
+  - Installs backend and frontend dependencies.
+  - Runs available test commands.
+  - Builds the frontend.
+
+2. **Deploy to Development**
+  - Runs after Build.
+  - Creates backend `.env` file from GitHub secrets.
+  - Deploys with Docker Compose.
+
+3. **Deploy to Staging**
+  - Runs after Build (on `main`).
+  - Creates backend `.env` file from staging secrets.
+  - Deploys with Docker Compose.
+
+4. **Deploy to Production**
+  - Runs after Staging succeeds.
+  - Uses GitHub Environment `production` with URL:
+    [https://real-time-go-chat-app.onrender.com](https://real-time-go-chat-app.onrender.com)
+  - Deploys with Docker Compose.
 
 ### Backend Deployment
 
