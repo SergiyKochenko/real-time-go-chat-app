@@ -55,14 +55,29 @@ jobs:
       NODE_ENV: development
       FRONTEND_URL: ${{ vars.DEV_FRONTEND_URL }}
       BACKEND_URL: ${{ vars.DEV_BACKEND_URL }}
+      PORT: 5001
       MONGODB_URI: ${{ secrets.DEV_MONGODB_URI }}
       JWT_SECRET: ${{ secrets.DEV_JWT_SECRET }}
+      CLOUDINARY_CLOUD_NAME: ${{ secrets.DEV_CLOUDINARY_CLOUD_NAME }}
+      CLOUDINARY_API_KEY: ${{ secrets.DEV_CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${{ secrets.DEV_CLOUDINARY_API_SECRET }}
     steps:
       - uses: actions/checkout@v4
       - name: Install Docker Compose
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
+      - name: Create backend .env (Dev)
+        run: |
+          cat <<EOF > backend/.env
+          MONGODB_URI=${MONGODB_URI}
+          PORT=${PORT}
+          JWT_SECRET=${JWT_SECRET}
+          CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+          CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+          CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+          NODE_ENV=${NODE_ENV}
+          EOF
       - name: Deploy with Docker Compose (Dev)
         run: |
           docker-compose -f deploy/docker-compose.yml up -d --build
@@ -79,14 +94,29 @@ jobs:
       NODE_ENV: staging
       FRONTEND_URL: ${{ vars.STAGING_FRONTEND_URL }}
       BACKEND_URL: ${{ vars.STAGING_BACKEND_URL }}
+      PORT: 5001
       MONGODB_URI: ${{ secrets.STAGING_MONGODB_URI }}
       JWT_SECRET: ${{ secrets.STAGING_JWT_SECRET }}
+      CLOUDINARY_CLOUD_NAME: ${{ secrets.STAGING_CLOUDINARY_CLOUD_NAME }}
+      CLOUDINARY_API_KEY: ${{ secrets.STAGING_CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${{ secrets.STAGING_CLOUDINARY_API_SECRET }}
     steps:
       - uses: actions/checkout@v4
       - name: Install Docker Compose
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
+      - name: Create backend .env (Staging)
+        run: |
+          cat <<EOF > backend/.env
+          MONGODB_URI=${MONGODB_URI}
+          PORT=${PORT}
+          JWT_SECRET=${JWT_SECRET}
+          CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+          CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+          CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+          NODE_ENV=${NODE_ENV}
+          EOF
       - name: Deploy with Docker Compose (Staging)
         run: |
           docker-compose -f deploy/docker-compose.yml up -d --build
@@ -102,14 +132,29 @@ jobs:
       NODE_ENV: production
       FRONTEND_URL: ${{ vars.PROD_FRONTEND_URL }}
       BACKEND_URL: ${{ vars.PROD_BACKEND_URL }}
+      PORT: 5001
       MONGODB_URI: ${{ secrets.PROD_MONGODB_URI }}
       JWT_SECRET: ${{ secrets.PROD_JWT_SECRET }}
+      CLOUDINARY_CLOUD_NAME: ${{ secrets.PROD_CLOUDINARY_CLOUD_NAME }}
+      CLOUDINARY_API_KEY: ${{ secrets.PROD_CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${{ secrets.PROD_CLOUDINARY_API_SECRET }}
     steps:
       - uses: actions/checkout@v4
       - name: Install Docker Compose
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
+      - name: Create backend .env (Production)
+        run: |
+          cat <<EOF > backend/.env
+          MONGODB_URI=${MONGODB_URI}
+          PORT=${PORT}
+          JWT_SECRET=${JWT_SECRET}
+          CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+          CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+          CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+          NODE_ENV=${NODE_ENV}
+          EOF
       - name: Deploy with Docker Compose (Production)
         run: |
           docker-compose -f deploy/docker-compose.yml up -d --build
