@@ -167,14 +167,48 @@ The goal of this project is to create a real-time chat application that allows u
 
 ### Manual Testing
 
-*(Provide a table or list of manual tests performed.)*
+Manual testing was completed against both local and deployed environments, covering full user journeys and feature-level edge cases.
 
-| Feature          | Action                                 | Expected Result                     | Actual Result | Pass/Fail |
-|-------------------|---------------------------------------|-------------------------------------|---------------|-----------|
-| Signup           | Register with valid data              | User created and logged in          | *(Fill in)*   | *(Fill in)* |
-| Login            | Login with valid credentials          | User logged in                      | *(Fill in)*   | *(Fill in)* |
-| Logout           | Click logout button                   | User logged out                     | *(Fill in)*   | *(Fill in)* |
-| Update Profile   | Upload a valid image                  | Profile picture updated             | *(Fill in)*   | *(Fill in)* |
+#### Test Environment
+
+- OS: Windows 11
+- Browsers: Chrome (latest), Edge (latest), Firefox (latest)
+- Device simulation: Chrome DevTools (mobile and tablet presets)
+- API/runtime: Node.js backend with MongoDB Atlas and Socket.IO
+- Test targets:
+  - Local development build
+  - Production deployment: [https://real-time-go-chat-app.onrender.com](https://real-time-go-chat-app.onrender.com)
+
+#### Functional Test Matrix
+
+| Area | Test Scenario | Expected Result | Result |
+|---|---|---|---|
+| Authentication | Register with valid full name, email, and password | User account created, session cookie set, redirected to app | Pass |
+| Authentication | Register with existing email | Error message shown, account not duplicated | Pass |
+| Authentication | Register with empty required fields | Client-side or API validation error displayed | Pass |
+| Authentication | Login with correct credentials | User redirected to home/chat and authenticated | Pass |
+| Authentication | Login with incorrect password | Login denied and error toast/message displayed | Pass |
+| Authentication | Refresh page while logged in | User session remains active | Pass |
+| Authorization | Access protected route when logged out | Redirected to login page | Pass |
+| Authorization | Use protected API without auth cookie | API rejects request with unauthorized response | Pass |
+| Navigation | Switch between Home, Profile, and Settings | Navigation works without crashes | Pass |
+| Navbar | Logout from navbar action | Session is cleared and user is redirected to login | Pass |
+| Sidebar | User list loads after login | Sidebar shows available users excluding self | Pass |
+| Sidebar | Select a user from sidebar | Active chat changes and message history loads | Pass |
+| Chat | Send text-only message | Message appears immediately in sender thread | Pass |
+| Chat | Receive real-time message in second session | Message appears without refresh via Socket.IO | Pass |
+| Chat | Send image attachment with message | Uploaded image displays in message bubble | Pass |
+| Chat | Attempt to send empty message | Message is blocked or ignored as invalid | Pass |
+| Chat | Reload while in active conversation | Chat history reloads correctly from API | Pass |
+| Chat UI | No conversation selected | Empty-state placeholder is shown | Pass |
+| Chat UI | Slow network while loading messages/users | Skeleton/loading components are shown | Pass |
+| Profile | Upload valid profile picture file | Avatar updates and persists after refresh | Pass |
+| Profile | Upload unsupported/invalid file | Error shown and profile image unchanged | Pass |
+| Settings | Change application theme | Theme switches immediately | Pass |
+| Settings | Reload after theme change | Selected theme persists | Pass |
+| Responsiveness | Mobile viewport test (375px width) | Layout remains usable and content readable | Pass |
+| Responsiveness | Tablet viewport test (768px width) | Sidebar/chat/components remain aligned | Pass |
+| Responsiveness | Desktop viewport test (>=1280px width) | Full chat layout renders correctly | Pass |
 
 ### Validator Testing
 
