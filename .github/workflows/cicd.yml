@@ -67,6 +67,7 @@ jobs:
         run: |
           docker-compose -f deploy/docker-compose.yml up -d --build
           echo "Deployed to Development (${{ vars.DEV_FRONTEND_URL }})"
+        working-directory: ${{ github.workspace }}
 
   DeployStaging:
     name: Deploy to Staging
@@ -90,6 +91,7 @@ jobs:
         run: |
           docker-compose -f deploy/docker-compose.yml up -d --build
           echo "Deployed to Staging (${{ vars.STAGING_FRONTEND_URL }})"
+        working-directory: ${{ github.workspace }}
 
   DeployProduction:
     name: Deploy to Production
@@ -112,3 +114,4 @@ jobs:
         run: |
           docker-compose -f deploy/docker-compose.yml up -d --build
           echo "Deployed to Production (https://real-time-go-chat-app.onrender.com/)"
+        working-directory: ${{ github.workspace }}
