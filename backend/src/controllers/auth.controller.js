@@ -35,9 +35,6 @@ export const signup = async (req, res) => {
         email: newUser.email,
         profilePic: newUser.profilePic,
       });
-      
-    } else {
-      req.status(400).json({ message: "Invalid user data" });
     }
   } catch (error) {
     console.log("Error in signup controller:", error.message);
@@ -68,7 +65,7 @@ export const login = async (req, res) => {
     });
     
   } catch (error) {
-    confirm.log("Error in login controller:", error.message);
+    console.log("Error in login controller:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 }
