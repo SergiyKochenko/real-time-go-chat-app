@@ -20,13 +20,13 @@ describe("formatMessageTime", () => {
   });
 
   it("should handle midnight correctly", () => {
-    const date = new Date("2026-04-27T00:00:00");
+    const date = new Date(2026, 3, 27, 0, 0, 0);
     const result = formatMessageTime(date);
     expect(result).toBe("00:00");
   });
 
   it("should handle noon correctly", () => {
-    const date = new Date("2026-04-27T12:00:00");
+    const date = new Date(2026, 3, 27, 12, 0, 0);
     const result = formatMessageTime(date);
     expect(result).toBe("12:00");
   });
