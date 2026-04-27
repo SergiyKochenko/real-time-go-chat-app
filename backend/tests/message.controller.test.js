@@ -146,4 +146,30 @@ describe("message controller", () => {
     expect(res.statusCode).toBe(500);
     expect(res.body).toEqual({ error: "Internal server error" });
   });
+
+  it("getUsersForSidebar returns 500 when query fails", async () => {
+    findUsersMock.mockImplementation(() => {
+      throw new Error("query failed");
+    });
+
+    const req = createMockReq({ user: { _id: "u1" } });
+    const res = createMockRes();
+
+    await getUsersForSidebar(req, res);
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toEqual({ error: "Internal server error" });
+  });
+
+  it("getMessages returns 500 when query fails", async () => {
+    findMessagesMock.mockRejectedValue(new Error("query failed"));
+
+    const req = createMockReq({ params: { id: "u2" }, user: { _id: "u1" } });
+    const res = createMockRes();
+
+    await getMessages(req, res);
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toEqual({ error: "Internal server error" });
+  });
 });

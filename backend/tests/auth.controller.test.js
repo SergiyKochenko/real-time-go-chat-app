@@ -181,6 +181,20 @@ describe("auth controller", () => {
     expect(res.cookieArgs).toEqual(["jwt", "", { maxAge: 0 }]);
   });
 
+  it("logout returns 500 when response cookie setter throws", () => {
+    const req = createMockReq();
+    const res = {
+      cookie: vi.fn(() => {
+        throw new Error("cookie fail");
+      }),
+      status: vi.fn(() => ({ json: vi.fn() })),
+    };
+
+    logout(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+  });
+
   it("updateProfile returns 400 when image missing", async () => {
     const req = createMockReq({ body: {}, user: { _id: "u1" } });
     const res = createMockRes();
@@ -218,4 +232,44 @@ describe("auth controller", () => {
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual({ _id: "u1" });
   });
+
+  it("signup returns 500 on unexpected error", async () => {
+    MockUser.findOne.mockRejectedValue(new Error("db fail"));
+
+    const req = createMockReq({
+      body: { fullName: "John", email: "john@mail.com", password: "123456" },
+    });
+    const res = createMockRes();
+
+    await signup(req, res);
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toEqual({ message: "Internal server error" });
+  });
+
+
+  it("login returns 500 on unexpected error", async () => {
+    MockUser.findOne.mockRejectedValue(new Error("db fail"));
+
+    const req = createMockReq({ body: { email: "x@mail.com", password: "pass" } });
+    const res = createMockRes();
+
+    await login(req, res);
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toEqual({ message: "Internal server error" });
+  });
+
+  it("updateProfile returns 500 when upload fails", async () => {
+    uploadMock.mockRejectedValue(new Error("upload fail"));
+
+    const req = createMockReq({ body: { profilePic: "base64" }, user: { _id: "u1" } });
+    const res = createMockRes();
+
+    await updateProfile(req, res);
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toEqual({ message: "Internal server error" });
+  });
+
 });

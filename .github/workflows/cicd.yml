@@ -24,8 +24,8 @@ jobs:
       - name: Install backend dependencies
         run: npm ci
         working-directory: ./backend
-      - name: Run backend tests
-        run: npm test || echo "No backend tests found"
+      - name: Run backend tests with coverage threshold
+        run: npm run test:coverage
         working-directory: ./backend
 
       # Frontend build & test
@@ -36,8 +36,14 @@ jobs:
       - name: Install frontend dependencies
         run: npm ci
         working-directory: ./frontend
-      - name: Run frontend tests
-        run: npm test || echo "No frontend tests found"
+      - name: Run frontend tests if present
+        shell: bash
+        run: |
+          if npm run | grep -qE '^\s*test\b'; then
+            npm run test
+          else
+            echo "No frontend test script found; skipping."
+          fi
         working-directory: ./frontend
       - name: Build frontend
         run: npm run build
