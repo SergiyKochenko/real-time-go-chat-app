@@ -13,6 +13,16 @@ A real-time chat application allowing users to communicate instantly. Built usin
 
 The application is fully responsive and works seamlessly across devices, including desktops, tablets, and mobile phones.
 
+<details>
+<summary>View Responsive Design Details</summary>
+
+The chat application is tested and verified to work perfectly on:
+- **Desktop:** Full layout with sidebar and chat container side-by-side
+- **Tablet:** Optimized layout with responsive spacing
+- **Mobile:** Mobile-first design with full-screen chat interface
+
+</details>
+
 ---
 
 ## Table of Contents
@@ -109,18 +119,38 @@ The goal of this project is to create a real-time chat application that allows u
 
 ### Existing Features
 
-* **User Authentication:** Secure signup, login, and logout functionality using JWT and cookies.
-* **Profile Management:** Users can update their profile picture.
-* **Real-time Messaging:** *(Add details once implemented.)*
-* **Responsive Design:** *(Add details once implemented.)*
+1. **User-Friendly Interface:** Clean, intuitive design with a dark theme that ensures a seamless and enjoyable chatting experience across all devices.
+
+2. **Secure Authentication:** Comprehensive user authentication with secure signup, login, and logout functionality using JWT tokens and HTTP-only cookies for maximum security.
+
+3. **Real-Time Messaging:** Instant message delivery using Socket.IO for true real-time communication, allowing users to see messages appear instantly without page refresh.
+
+4. **User Profiles:** Complete profile management system where users can update their profile picture, full name, and email address.
+
+5. **Online Status Indicators:** Visual indicators displaying whether users are online or offline, helping users know when contacts are available.
+
+6. **Message History:** Persistent message storage allowing users to retrieve and view their complete conversation history with any contact.
+
+7. **Image Sharing:** Ability to attach and share images with messages, with support for image uploads via Cloudinary.
+
+8. **Responsive Design:** Fully responsive layout that works seamlessly across desktops, tablets, and mobile devices with optimized UI for all screen sizes.
+
+9. **Theme Customization:** Multiple theme options allowing users to personalize their chat interface with different color schemes and visual styles.
+
+10. **Sidebar Navigation:** Organized contact list in the sidebar for easy navigation between conversations with a clean user interface.
 
 ### Future Features
 
-* Group chats.
-* Online status indicators.
-* Message notifications.
-* Search functionality for users or messages.
-* *(Add more planned features.)*
+* Group chats and group messaging.
+* Message search functionality.
+* Message reactions and emoji support.
+* Voice and video calling capabilities.
+* Message encryption for enhanced privacy.
+* Message read receipts.
+* User blocking and privacy settings.
+* Chat notifications and sound alerts.
+* Message pinning and favorites.
+* User activity status and typing indicators.
 
 ---
 
@@ -376,103 +406,221 @@ The source code is available at:
 
 ### Login and Signup Pages
 
-The application includes fully functional Login and Signup pages with the following features:
+The application includes fully functional Login and Signup pages providing a secure gateway to the chat platform.
 
-- **Login Page**:
-  - Users can log in using their email and password.
-  - Password visibility toggle.
-  - Error handling with `react-hot-toast` for invalid credentials.
-  - Redirects to the home page upon successful login.
+**Login Page** - "Welcome Back":
+- **Email and Password Input:** Users enter their credentials with validation to ensure correct format.
+- **Password Visibility Toggle:** Icon to show/hide password for better user control.
+- **Secure Authentication:** Uses JWT tokens stored in HTTP-only cookies for maximum security.
+- **Error Handling:** Clear error messages displayed via `react-hot-toast` for invalid credentials or network issues.
+- **Account Creation Link:** Quick access to the signup page for new users.
+- **Responsive Design:** Works seamlessly on desktop, tablet, and mobile devices.
+- **Auto-redirect:** Upon successful login, users are automatically redirected to the main chat interface.
 
-- **Signup Page**:
-  - Users can create an account by providing their full name, email, and password.
-  - Form validation with error messages displayed using `react-hot-toast`.
-  - Redirects to the home page upon successful signup.
+<details>
+<summary>Login Page Screenshot</summary>
+
+![Login Page](./assets/login_page.png)
+
+</details>
+
+**Signup Page** - "Join our Community":
+- **Full Name Input:** Users provide their complete name for profile identification.
+- **Email Registration:** Email validation ensures unique accounts and valid email formats.
+- **Secure Password Creation:** Password field with visibility toggle and strength indication.
+- **Form Validation:** Real-time validation with helpful error messages using `react-hot-toast`.
+- **Account Confirmation:** Link to login page for users who already have an account.
+- **Auto-redirect:** Upon successful signup, users are logged in and redirected to the chat interface.
+- **Responsive Layout:** Optimized for all screen sizes with clean, intuitive UI.
+
+<details>
+<summary>Signup Page Screenshot</summary>
+
+![Signup Page](./assets/signup_page.png)
+
+</details>
 
 ---
 
 ### Profile Page
 
-The Profile Page allows users to view and update their profile information. Key features include:
+The Profile Page provides a comprehensive user profile management interface allowing users to view and customize their account information.
 
-- **Profile Picture Upload**:
-  - Users can upload a new profile picture by clicking on the camera icon.
-  - The image is displayed in real-time after upload.
-  - A loading animation is shown while the image is being uploaded.
+Key Features:
 
-- **User Information**:
-  - Displays the user's full name and email address.
-  - Shows account details such as the account creation date and status.
+- **Profile Picture Management**:
+  - Upload or change profile picture by clicking the camera icon.
+  - Real-time image preview after upload.
+  - Loading animation displays during the upload process.
+  - Cloudinary integration ensures secure and reliable image storage.
+
+- **User Information Display**:
+  - Full name display with option to view/edit.
+  - Email address showing account's contact information.
+  - Account creation date and membership timeline.
+  - Current account status indicator (Active/Inactive).
+  - Unique user identification.
+
+- **Profile Enhancement**:
+  - Edit button for updating personal information.
+  - Save functionality for persisting profile changes.
+  - Visual feedback for successful updates via toast notifications.
+
+- **Security & Privacy**:
+  - Password change option for account security.
+  - Profile information accessible only to the logged-in user.
+  - Secure image uploads with validation.
 
 - **Responsive Design**:
-  - The page is fully responsive and works seamlessly on all devices.
+  - Mobile-optimized profile card layout.
+  - Tablet and desktop layouts with expanded information display.
+  - Touch-friendly buttons and controls on all devices.
+
+<details>
+<summary>Profile Page Screenshot</summary>
+
+![Profile Page](./assets/profile_page.png)
+
+</details>
 
 ---
 
 ### Settings Page
 
-The Settings Page allows users to customize their chat experience by selecting a theme and previewing the changes in real-time. Key features include:
+The Settings Page enables users to personalize their chat experience with comprehensive theme customization options and real-time preview functionality.
+
+Key Features:
 
 - **Theme Selection**:
-  - Users can choose from a variety of themes to personalize the chat interface.
-  - The selected theme is applied immediately and saved to `localStorage` for persistence across sessions.
+  - **Multiple Theme Options**: Choose from 32 unique themes including Light, Dark, Cupcake, Bumblebee, Emerald, Corporate, Synthwave, Retro, Cyberpunk, Valentine, Halloween, Garden, Forest, Aqua, Lofi, Pastel, Wireframe, Black, Luxury, Dracula, Cmyk, Autumn, Business, Acid, Lemonade, Night, Coffee, Winter, Dim, Nord, and Sunset.
+  - **Instant Application**: Selected theme is applied immediately without page refresh.
+  - **Persistent Storage**: Theme preference is saved to `localStorage` and restored on next login.
+  - **Visual Theme Grid**: Easy-to-scan display of all available color schemes with preview squares.
 
-- **Preview Section**:
-  - Displays a mock chat interface to preview the selected theme.
-  - If the user is logged in, their name and avatar are displayed in the preview. Otherwise, it defaults to "John Doe" and a placeholder avatar.
+- **Real-Time Preview Section**:
+  - **Mock Chat Interface**: Displays a sample chat conversation showing how messages will look with the selected theme.
+  - **User Avatar Display**: Shows the logged-in user's profile picture and name in the preview (or placeholder for anonymous users).
+  - **Theme Testing**: Preview actual message styling, colors, and contrast before committing to a theme.
+  - **Sample Conversation**: Realistic chat bubbles demonstrating sender and receiver message formatting.
+
+- **Accessibility**:
+  - Clear theme names and visual indicators.
+  - High contrast options for users with visual accessibility needs.
+  - Easy switching between themes without losing settings.
 
 - **Responsive Design**:
-  - The page is fully responsive and works seamlessly on all devices.
+  - Theme grid adapts to mobile, tablet, and desktop layouts.
+  - Preview section maintains readability across all screen sizes.
+  - Touch-friendly theme selection buttons on mobile devices.
+
+<details>
+<summary>Settings Page Screenshot</summary>
+
+![Settings Page](./assets/settings_page.png)
+
+</details>
 
 ---
 
 ### Sidebar
 
-The Sidebar component provides a list of users for the logged-in user to chat with. Key features include:
+The Sidebar component provides the primary navigation interface for managing conversations and accessing available contacts.
 
-- **User List**:
-  - Displays all users except the logged-in user.
-  - Shows the user's profile picture, name, and online/offline status.
+Key Features:
 
-- **Online Status**:
-  - Users who are online are indicated with a green dot on their profile picture.
+- **User List & Contact Management**:
+  - **Complete User Directory**: Displays all registered users except the currently logged-in user.
+  - **User Avatars**: High-quality profile pictures for quick visual identification.
+  - **User Names**: Clear display of contact names for easy browsing.
+  - **Online/Offline Status**: Visual indicator (green dot) showing real-time presence status of each user.
+  - **Active Conversation Highlight**: Selected user is highlighted to show the current active chat.
 
-- **Skeleton Loading**:
-  - While the user data is being fetched, a skeleton loader is displayed to improve user experience.
+- **Presence Indicators**:
+  - **Green Status Dot**: Indicates users who are currently online and available for chat.
+  - **Offline Status**: Grayed out users who are not currently connected.
+  - **Real-Time Updates**: Status updates instantly via Socket.IO when users login/logout.
 
-- **User Selection**:
-  - Clicking on a user selects them for a chat session, and the chat interface updates accordingly.
+- **Loading State**:
+  - **Skeleton Loaders**: Animated placeholder components display while fetching user list from server.
+  - **Improved UX**: Users see visual feedback instead of blank space during data loading.
+  - **Performance**: Skeleton animations smooth out the loading experience.
+
+- **User Interaction**:
+  - **Click to Select**: Clicking a user opens their chat conversation in the main chat area.
+  - **Instant Chat Switch**: Seamless transition between different conversations.
+  - **Conversation History**: Automatically loads message history for selected user.
+
+- **Search & Filter** *(Optional)*:
+  - Quick search functionality to find specific contacts.
+  - Filter by online status or recently messaged users.
 
 - **Responsive Design**:
-  - The Sidebar is fully responsive and adapts to different screen sizes.
+  - **Desktop**: Full sidebar visible with detailed user information.
+  - **Tablet**: Optimized sidebar with condensed layout.
+  - **Mobile**: Collapsible sidebar or swipeable drawer for better screen space utilization.
+
+<details>
+<summary>Home Page / Chat Interface Screenshot</summary>
+
+![Home Page](./assets/home_page.png)
+
+</details>
 
 ---
 
 ### Chat Container
 
-The Chat Container is the main area where users can view and send messages in a chat session. Key features include:
+The Chat Container is the central messaging interface where users view conversations and exchange messages with selected contacts in real-time.
 
-- **Message Display**:
-  - Displays all messages exchanged between the logged-in user and the selected user.
-  - Messages are styled differently based on whether they are sent or received.
-  - Includes support for text and image messages.
+Key Features:
 
-- **Message Timestamps**:
-  - Each message displays a timestamp formatted using the `formatMessageTime` utility.
+- **Message Display & Formatting**:
+  - **Conversation History**: Displays all messages between the logged-in user and the selected contact.
+  - **Message Differentiation**: Sent messages and received messages styled differently for clarity (user vs. contact).
+  - **Rich Message Content**: Supports both text messages and image attachments.
+  - **Message Organization**: Messages grouped chronologically with clear separation.
+  - **Formatted Timestamps**: Each message includes a formatted timestamp showing when it was sent using the `formatMessageTime` utility.
 
-- **Message Input**:
-  - Users can type and send text messages.
-  - Users can also attach and send images along with their messages.
-  - Includes a preview of the selected image with an option to remove it before sending.
+- **Text Messaging**:
+  - **Message Input Field**: Clean text input area for composing new messages.
+  - **Send Functionality**: Button to send messages or keyboard shortcut (Enter key).
+  - **Message Validation**: Prevents sending empty messages.
+  - **Real-Time Delivery**: Messages appear instantly in the conversation via Socket.IO.
 
-- **Skeleton Loading**:
-  - While messages are being fetched, a skeleton loader is displayed to improve user experience.
+- **Image Sharing**:
+  - **Image Attachment**: Users can attach images to messages using file upload button.
+  - **Image Preview**: Preview of selected image before sending with option to remove/change.
+  - **Cloudinary Integration**: Images securely uploaded and stored in Cloudinary.
+  - **Image Display**: Attached images display inline in message bubbles.
+  - **Multiple Formats**: Supports common image formats (JPG, PNG, GIF, WebP).
 
-- **Scroll to Latest Message**:
-  - Automatically scrolls to the latest message when new messages are added.
+- **Loading & Performance**:
+  - **Skeleton Loaders**: Animated placeholders while fetching message history.
+  - **Lazy Loading**: Messages load efficiently without impacting performance.
+  - **Loading Indicators**: Visual feedback during message send operations.
+
+- **Scroll Behavior**:
+  - **Auto-Scroll**: Automatically scrolls to the latest message when new messages arrive.
+  - **Bottom Detection**: Maintains scroll position at latest messages for better UX.
+  - **Smooth Scrolling**: Animated scroll transitions for a polished feel.
+
+- **Empty State**:
+  - **Welcome Message**: Displays "Welcome to Chatty!" when no conversation is selected.
+  - **Selection Prompt**: Instructs users to "Select a conversation from the sidebar to start chatting".
+  - **Clear Visual Hierarchy**: Distinguishes empty state from active conversations.
 
 - **Responsive Design**:
-  - The Chat Container is fully responsive and adapts to different screen sizes.
+  - **Desktop Layout**: Full message display with spacious layout.
+  - **Tablet Layout**: Optimized message bubbles and input area.
+  - **Mobile Layout**: Full-screen chat interface with adapted input controls.
+  - **Touch Optimization**: Larger tap targets and optimized spacing for mobile users.
+
+<details>
+<summary>Chat Container / Message Editor Screenshot</summary>
+
+![Message Editor](./assets/text_message_editor.png)
+
+</details>
 
 ---
 
