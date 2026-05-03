@@ -10,3 +10,9 @@ services:
         value: production
       - key: PORT
         value: 5001
+
+  - type: static
+    name: chat-app-frontend
+    rootDir: frontend/dist
+    buildCommand: npm install --prefix ../backend && npm install --prefix . && npm run build
+    publicPath: /
