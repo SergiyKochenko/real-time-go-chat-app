@@ -106,15 +106,35 @@ The goal of this project is to create a real-time chat application that allows u
 
 ### Wireframes
 
-*(Include links or images of wireframes for key pages like Login, Signup, Chat Interface, etc.)*
+Low-fidelity wireframes for the core screens.
+
+![Login Wireframe](./assets/wireframe-login.svg)
+
+![Signup Wireframe](./assets/wireframe-signup.svg)
+
+![Chat Interface Wireframe](./assets/wireframe-chat.svg)
+
+![Profile Wireframe](./assets/wireframe-profile.svg)
+
+![Settings Wireframe](./assets/wireframe-settings.svg)
 
 ### Color Scheme
 
-*(Specify the color palette used in the application.)*
+The UI uses DaisyUI theme tokens, with the default theme set to **black** and user-selectable themes in Settings.
+
+Available themes: light, dark, cupcake, bumblebee, emerald, corporate, synthwave, retro, cyberpunk, valentine, halloween, garden, forest, aqua, lofi, pastel, fantasy, wireframe, black, luxury, dracula, cmyk, autumn, business, acid, lemonade, night, coffee, winter, dim, nord, sunset.
+
+Key color roles:
+- Primary, secondary, accent, and neutral tokens from the active DaisyUI theme.
+- Base surfaces use `base-100`, `base-200`, and `base-300` for panels and layout depth.
+- Dark-first contrast with light text for chat readability.
 
 ### Typography
 
-*(Specify the fonts used for headings, body text, etc.)*
+Typography follows Tailwind and DaisyUI defaults:
+- System UI sans-serif font stack (no custom web font).
+- Headings use `font-semibold`/`font-bold` utilities for hierarchy.
+- Labels and supporting text use `font-medium` for clarity.
 
 ---
 
