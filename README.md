@@ -47,6 +47,9 @@ The chat application is tested and verified to work perfectly on:
       - [Message Routes](#message-routes)
   - [Testing](#testing)
     - [Manual Testing](#manual-testing)
+      - [Test Environment](#test-environment)
+      - [Functional Test Matrix](#functional-test-matrix)
+    - [Unit Test Coverage](#unit-test-coverage)
     - [Validator Testing](#validator-testing)
     - [Performance Testing](#performance-testing)
     - [Known Bugs](#known-bugs)
@@ -239,6 +242,14 @@ Manual testing was completed against both local and deployed environments, cover
 | Responsiveness | Mobile viewport test (375px width) | Layout remains usable and content readable | Pass |
 | Responsiveness | Tablet viewport test (768px width) | Sidebar/chat/components remain aligned | Pass |
 | Responsiveness | Desktop viewport test (>=1280px width) | Full chat layout renders correctly | Pass |
+
+### Unit Test Coverage
+
+The combined backend and frontend unit test coverage summary is captured below.
+
+![Unit Test Coverage](./assets/screencapture-file-C-Users-Sergiy-Desktop-Completed-Projects-CHAT-APP-1-chat-app-coverage-total-html-2026-05-04-20_46_12.png)
+
+Coverage summary (combined): Statements 98.40%, Branches 92.68%, Functions 96.55%, Lines 98.36%.
 
 ### Validator Testing
 
