@@ -3,9 +3,11 @@ services:
     name: chat-app-backend
     runtime: node
     rootDir: backend
-    buildCommand: npm install
+    buildCommand: npm ci --omit=dev
     startCommand: npm start
     envVars:
+      - key: NODE_VERSION
+        value: 20.17.0
       - key: NODE_ENV
         value: production
       - key: PORT
