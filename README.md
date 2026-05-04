@@ -831,22 +831,28 @@ export const useAuthStore = create((set, get) => ({
 
 ### Content
 
-* *(Acknowledge any tutorials, documentation, or other resources used.)*
+* Official documentation for React, Vite, Node.js, Express, MongoDB, Mongoose, Socket.IO, and Vitest.
+* Cloudinary and Render docs for deployment and media handling guidance.
 
 ### Media
 
-* *(Acknowledge sources for images, icons, etc.)*
+* UI screenshots captured from this application.
+* Device mockup created with "Am I Responsive" (https://ami.responsivedesign.is/).
+* Icons provided by Lucide (via `lucide-react`).
 
 ### Code
 
-* *(Acknowledge any significant code snippets or libraries used.)*
+* Built with open-source libraries including React, Zustand, Socket.IO, Express, and Mongoose.
+* Testing utilities from Vitest and Testing Library.
 
 ### Acknowledgements
 
-* *(Thank anyone who helped or inspired the project.)*
+* Thanks to the open-source community and documentation authors.
+* Thanks to everyone who tested the app and shared feedback.
+* Department of Computing, ATU Donegal - DevOps Coursework Assignment 2 (Module: DevOps Pipelines; Coordinator: Dr. Shane Wilson; Issue date: 14/04/2026; Submission deadline: 20/05/2026 22:00 UTC; Weighting: 60%; Type: Individual; Title: GitHub Actions GitOps pipeline).
 
 ---
 
 ## License
 
-*(Specify the license for your project, e.g., MIT License.)*
+All rights reserved.
