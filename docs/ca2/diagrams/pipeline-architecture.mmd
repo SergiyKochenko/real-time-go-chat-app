@@ -1,0 +1,12 @@
+flowchart TB
+  A[Push to main] --> B[CI + CD Pipeline\nBuild, Test, Deploy to Dev & Staging]
+  A --> C[PR Validation\nLint, Syntax Check, Secret Scan]
+  A --> D[DevSecOps Scans\nCodeQL, npm audit, scheduled]
+
+  B --> E[Staging Passes]
+  C --> E
+  D --> E
+
+  E --> F[Production Approval]
+  F --> G[Manual Deployment]
+  G --> H[GitOps Deploy\nArtifact Package, Health Checks, Audit Trail]

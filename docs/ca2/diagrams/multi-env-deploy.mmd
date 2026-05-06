@@ -1,0 +1,10 @@
+flowchart LR
+  A[Code Push to main] --> B[Build + Test]
+  B --> C[Deploy to Development]
+  C --> D[Deploy to Staging]
+  D --> E{Manual Approval}
+  E -->|approved| F[Deploy to Production]
+  F --> G[Health Check + Summary]
+
+  B --> H[Artifacts Stored - 30 days]
+  D --> H

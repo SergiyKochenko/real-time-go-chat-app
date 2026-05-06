@@ -1,0 +1,21 @@
+flowchart LR
+  subgraph GitHub_Actions
+    DEV[Environment: development]
+    STG[Environment: staging]
+    PRD[Environment: production]
+  end
+
+  DEV -->|auto deploy| STG
+  STG -->|manual approval| PRD
+
+  subgraph Secrets_and_Vars
+    S1[Secrets: DB, JWT, Cloudinary]
+    V1[Vars: API URLs, env config]
+  end
+
+  S1 --> DEV
+  S1 --> STG
+  S1 --> PRD
+  V1 --> DEV
+  V1 --> STG
+  V1 --> PRD

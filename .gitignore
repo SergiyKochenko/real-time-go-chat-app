@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# Coverage artifacts
+coverage
+coverage-total.html
+**/coverage
+**/lcov.info
+**/coverage-final.json
+*.lcov
+
 # Ignore node_modules in backend folder
 backend/node_modules
 
@@ -28,5 +36,5 @@ backend/node_modules
 
 .env
 
-# Local assignment docs (do not commit)
-docs/
+# Local virtual environments
+.venv/

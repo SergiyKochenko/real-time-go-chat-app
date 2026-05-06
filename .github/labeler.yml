@@ -1,0 +1,8 @@
+frontend:
+  - "frontend/**"
+backend:
+  - "backend/**"
+docs:
+  - "docs/**"
+workflows:
+  - ".github/workflows/**"

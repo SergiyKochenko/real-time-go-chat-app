@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { useAuthStore } from "./useAuthStore";
 import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";

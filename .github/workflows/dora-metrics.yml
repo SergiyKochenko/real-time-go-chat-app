@@ -1,0 +1,65 @@
+name: DORA Metrics Snapshot
+
+on:
+  schedule:
+    - cron: "15 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  snapshot:
+    name: Generate Metrics Snapshot
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect workflow run data
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const now = new Date();
+            const windowDays = 30;
+            const since = new Date(now.getTime() - windowDays * 24 * 60 * 60 * 1000);
+            const workflows = ['deploy-gitops.yml', 'cicd.yml'];
+            const output = [];
+
+            for (const workflow_id of workflows) {
+              const runs = await github.rest.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id,
+                per_page: 100,
+                branch: 'main',
+                status: 'success'
+              });
+
+              const filtered = runs.data.workflow_runs
+                .filter(run => new Date(run.created_at) >= since)
+                .map(run => ({
+                  id: run.id,
+                  name: run.name,
+                  head_sha: run.head_sha,
+                  created_at: run.created_at,
+                  updated_at: run.updated_at,
+                  actor: run.actor?.login || 'unknown'
+                }));
+
+              output.push({ workflow_id, successful_runs: filtered });
+            }
+
+            const summary = {
+              generated_at: now.toISOString(),
+              window_days: windowDays,
+              workflows: output
+            };
+
+            fs.writeFileSync('dora-metrics.json', JSON.stringify(summary, null, 2));
+
+      - name: Upload metrics snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: dora-metrics-${{ github.run_id }}
+          path: dora-metrics.json
+          retention-days: 30

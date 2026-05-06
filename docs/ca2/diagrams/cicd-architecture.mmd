@@ -1,0 +1,22 @@
+flowchart TB
+  A[Developer Push or PR] --> B{Trigger}
+
+  B -->|PR to main/develop| C[PR Validation Workflow]
+  C --> C1[Frontend ESLint]
+  C --> C2[Backend Syntax Check]
+  C --> C3[Gitleaks Secret Scan]
+
+  B -->|Push to main or manual| D[CI + CD Workflow]
+  D --> D1[Install Deps]
+  D --> D2[Run Tests - Vitest]
+  D --> D3[Build Frontend]
+  D --> D4[Artifact Packaging]
+
+  B -->|Push to main or schedule| E[Security Workflow]
+  E --> E1[CodeQL]
+  E --> E2[npm audit]
+
+  D --> F[Deploy Workflow]
+  F --> F1[Development Deploy]
+  F --> F2[Staging Deploy]
+  F --> F3[Production Deploy]
